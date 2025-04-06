@@ -1,3 +1,6 @@
+# Data heavy files
+outputs
+
 # History files
 .Rhistory
 .Rapp.history
