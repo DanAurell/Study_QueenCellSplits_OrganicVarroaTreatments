@@ -5,7 +5,7 @@ library(tidyverse)
 
 
 
-an_dat <- read.csv("2 analyses for split-treat/curated data/an_dat_up.csv")
+an_dat <- read.csv("analyses for split-treat/curated data/an_dat_up.csv")
 
 
 #### Sum of issue types and issues per treatment ---- 
@@ -107,9 +107,9 @@ established_summary_piv %>%
   theme(axis.text.x=element_text(angle=45,hjust=1), axis.title.x=element_blank(), legend.title = element_blank())
 
 
-# ggsave("2 analyses for split-treat/outputs/Fig3_established_p_2025-04-05.png", width = 12, height = 8.625, units = "in")
+ggsave("analyses for split-treat/outputs/Fig3_established_p_2025-04-05.png", width = 12, height = 8.625, units = "in")
 
-# ggsave("2 analyses for split-treat/outputs/Fig3_established_p_2025-04-05.tiff", width = 12, height = 8.625, units = "in")
+ggsave("analyses for split-treat/outputs/Fig3_established_p_2025-04-05.tiff", width = 12, height = 8.625, units = "in")
 
 
 
@@ -207,6 +207,6 @@ issues_summary_pivoted %>%
   theme_classic(base_size = 30) + 
   theme(axis.text.x=element_text(angle=45,hjust=1), axis.title.x=element_blank(), legend.title = element_blank())
 
-# ggsave("2 analyses for split-treat/outputs/FigS3_CoD_2025-04-05.png", width = 12, height = 8.625, units = "in")
-# ggsave("2 analyses for split-treat/outputs/FigS3_CoD_2025-04-05.tiff", width = 12, height = 8.625, units = "in")
+ggsave("analyses for split-treat/outputs/FigS3_CoD_2025-04-05.png", width = 12, height = 8.625, units = "in")
+ggsave("analyses for split-treat/outputs/FigS3_CoD_2025-04-05.tiff", width = 12, height = 8.625, units = "in")
 

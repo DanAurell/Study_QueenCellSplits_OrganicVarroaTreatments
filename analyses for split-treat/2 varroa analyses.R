@@ -15,7 +15,7 @@ library(lme4)
 
 
 #### Read in data ----
-an_dat <- read.csv("2 analyses for split-treat/curated data/an_dat_up.csv")
+an_dat <- read.csv("analyses for split-treat/curated data/an_dat_up.csv")
 
 # For Varroa analyses
 # Exclude any colonies that had EFB or queen issues or were removed due to weakness by day 77
@@ -42,7 +42,7 @@ dat <- dat %>%
     chpost_perc_var = 100*chpost_var_total/chpost_wash_bees
   )
 
-# 117 of 177 colonies still in trial on d77: 66% of colonies. Not too bad.
+# 117 of 177 colonies still in trial on d77: 66% of colonies.
 
 
 dat <- dat %>%
@@ -57,9 +57,9 @@ dat <- dat %>%
 
 unique(dat$days_numeric) 
 # 95 to 113 days between day 2 and "Harvest" mites samples
-mean(unique(dat$days_numeric)) # Mean 102.75 ; round to 103 for predictions
-# If the mean difference is 103 days, 
-# that means the predictions are made for "day 105"
+mean(unique(dat$days_numeric)) # Mean 102.75 ; round to 103 for predictions;
+# The mean difference is 103 days between day 2 and "harvest", 
+# that means the predictions for "harvest" are reasonable to make for "day 105"
 
 
 #### Assess infestation of parent colonies ----
@@ -81,7 +81,7 @@ an_dat %>%
 
 #### Amitraz resistance bioassay ----
 
-# At Wire, the tests went over time - don't use these
+# At Wire, the tests went over the three-hour time - don't use these
 
 dat_amres <- an_dat %>% 
   filter(new_yard != "Wire") %>% 
@@ -91,7 +91,7 @@ dat_amres <- an_dat %>%
 dat_amres <- dat_amres %>% 
   mutate(resistance = 100*ch2_var_wash/ch2_var_total)
 
-mean(dat_amres$resistance)
+mean(dat_amres$resistance) # Mean calculated at the colony level
 
 
 #### Mean Varroa infestations on day 2, 77, harvest ----
@@ -212,12 +212,12 @@ dat_piv %>%
   theme_classic(base_size = 30) +  #base_size = 30
   theme(axis.text.x=element_text(angle=45,hjust=1), axis.title.x=element_blank(), legend.position = "none")
 
-# ggsave("2 analyses for split-treat/outputs/SuppFig_S2_varroa_daily 2025-04-04.png", width = 12, height = 14, units = "in")
+ggsave("analyses for split-treat/outputs/SuppFig_S2_varroa_daily 2025-04-04.png", width = 12, height = 14, units = "in")
 
 
 #### Assess pre-treatment differences statistically ----
 
-# For reported results, included only non-issues colonies
+# Included only non-issues colonies in reported analysis
 
 m.day2 <- glm.nb(ch2_var.total~trt_label, data = dat)
 summary(m.day2)
@@ -240,14 +240,13 @@ anova(m.day2, m.day2.0) # Pre-treatment differences were not significant (P=0.84
 
 #### ANCOVA d77 Varroa infestation ----
 
-# I considered including cohort/new_yard as a random effect since the
+# I considered including cohort (using column new_yard) as a random effect
   # To increase power to detect treatment effects
   # But often gave singular fits, and estimates are so similar without random effect
   # Decision: not to use random effect of cohort/new_yard
 
 # Correcting for number of bees in sample by including it as an offset
 
-# m3 is best supported model
 m3 <- glm.nb(ch77_var.total ~ 
                trt_label + 
                ch2_perc.var +
@@ -367,7 +366,7 @@ cont77 <- tidy(cont77)
 
 cont77$adj.p.value <- sprintf("%.3f", cont77$adj.p.value)
 cont77$statistic <- sprintf("%.2f", cont77$statistic)
-# After the fact will manually change 0.000 to < 0.001
+# After the fact manually changed 0.000 to < 0.001
 
 
 
@@ -381,7 +380,7 @@ cont_tbl <- gt(cont77)
 cont_rtf <- cont_tbl %>%
   as_rtf()
 
-my_conn <- file("2 analyses for split-treat/outputs/SuppTable_S3_2025-04-05.RTF", "w")
+my_conn <- file("analyses for split-treat/outputs/SuppTable_S3_2025-04-05.RTF", "w")
 writeLines(cont_rtf, my_conn)
 close(my_conn)
 
@@ -528,7 +527,7 @@ pred_tbl <- gt(pred3)
 pred_rtf <- pred_tbl %>%
   as_rtf()
 
-my_conn <- file("2 analyses for split-treat/outputs/SuppTable_S2_2025-04-05.RTF", "w")
+my_conn <- file("analyses for split-treat/outputs/SuppTable_S2_2025-04-05.RTF", "w")
 writeLines(pred_rtf, my_conn)
 close(my_conn)
 
@@ -652,7 +651,7 @@ eff_all_tbl <- gt(eff_all2)
 eff_all_rtf <- eff_all_tbl %>%
   as_rtf()
 
-my_conn <- file("2 analyses for split-treat/outputs/SuppTable_S4_2025-04-05.RTF", "w")
+my_conn <- file("analyses for split-treat/outputs/SuppTable_S4_2025-04-05.RTF", "w")
 writeLines(eff_all_rtf, my_conn)
 close(my_conn)
 
@@ -832,16 +831,16 @@ Fig1_PaneC_grey <- pred %>%
 
 ggarrange(Fig1_PaneA, Fig1_PaneB, Fig1_PaneC, ncol = 3, nrow = 1, heights = c(1, 1, 1), widths = c(0.43, 1, 1), labels = NULL, font.label = list(size = 30))
 
-# ggsave("2 analyses for split-treat/outputs/Fig1_varroa_pred_2025-04-05.png", width = 17.25, height = 8, units = "in")
-# ggsave("2 analyses for split-treat/outputs/Fig1_varroa_pred_2025-04-05.tiff", width = 17.25, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig1_varroa_pred_2025-04-05.png", width = 17.25, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig1_varroa_pred_2025-04-05.tiff", width = 17.25, height = 8, units = "in")
 
 
 # Stitch together greyscale figure
 
 ggarrange(Fig1_PaneA_grey, Fig1_PaneB_grey, Fig1_PaneC_grey, ncol = 3, nrow = 1, heights = c(1, 1, 1), widths = c(0.43, 1, 1), labels = NULL, font.label = list(size = 30))
 
-# ggsave("2 analyses for split-treat/outputs/Fig1_varroa_pred_grey_2025-04-05.png", width = 17.25, height = 8, units = "in")
-# ggsave("2 analyses for split-treat/outputs/Fig1_varroa_pred_grey_2025-04-05.tiff", width = 17.25, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig1_varroa_pred_grey_2025-04-05.png", width = 17.25, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig1_varroa_pred_grey_2025-04-05.tiff", width = 17.25, height = 8, units = "in")
 
 
 
@@ -870,8 +869,8 @@ eff77_out %>%
 
 # Save color version
 
-ggsave("2 analyses for split-treat/outputs/Fig2_efficacy_2025-04-05.png", width = 12, height = 8.625, units = "in")
-ggsave("2 analyses for split-treat/outputs/Fig2_efficacy_2025-04-05.tiff", width = 12, height = 8.625, units = "in")
+ggsave("analyses for split-treat/outputs/Fig2_efficacy_2025-04-05.png", width = 12, height = 8.625, units = "in")
+ggsave("analyses for split-treat/outputs/Fig2_efficacy_2025-04-05.tiff", width = 12, height = 8.625, units = "in")
 
 
 
@@ -894,8 +893,8 @@ eff77_out %>%
 
 # Save greyscale version
 
-ggsave("2 analyses for split-treat/outputs/Fig2_efficacy_grey_2025-04-05.png", width = 12, height = 8.625, units = "in")
-ggsave("2 analyses for split-treat/outputs/Fig2_efficacy_grey_2025-04-05.tiff", width = 12, height = 8.625, units = "in")
+ggsave("analyses for split-treat/outputs/Fig2_efficacy_grey_2025-04-05.png", width = 12, height = 8.625, units = "in")
+ggsave("analyses for split-treat/outputs/Fig2_efficacy_grey_2025-04-05.tiff", width = 12, height = 8.625, units = "in")
 
 
 
@@ -904,6 +903,21 @@ ggsave("2 analyses for split-treat/outputs/Fig2_efficacy_grey_2025-04-05.tiff", 
 # Suggested by a reviewer
 
 # Data prep for BACI
+
+# Reverse renaming
+
+dat <- dat %>% 
+  rename(ch2_var_total = ch2_var.total,
+        ch2_wash_bees = ch2_wash.bees,
+        ch2_perc_var = ch2_perc.var,
+        ch77_var_total = ch77_var.total,
+        ch77_wash_bees = ch77_wash.bees,
+        ch77_perc_var = ch77_perc.var,
+         
+        chpost_var_total = chpost_var.total,
+        chpost_wash_bees = chpost_wash.bees,
+        chpost_perc_var = chpost_perc.var
+  )
 
 dat_slim <- dat %>% 
   select(colony_num,
@@ -993,7 +1007,7 @@ ss$theta               ## table of random effects parameters, Cholesky scale
 emm3 <- emmeans(m.b2, ~ day * trt_label) 
 
 # Perform the "contrast of contrasts" procedure
-pairs(pairs(emm3, simple = "day"), simple = "trt_label") # I think this is it!!!
+pairs(pairs(emm3, simple = "day"), simple = "trt_label") # Finally figured it out!!!
 
 # I confirmed mathematically that these "contrasts of contrasts" line up with 
 # how efficacy is calculated with the Henderson-Tilton formula

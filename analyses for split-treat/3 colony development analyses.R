@@ -8,7 +8,7 @@ library(ggpubr) # For combo plot
 library(scales) # To decide on color scheme
 
 #### Read in data ----
-an_dat <- read.csv("2 analyses for split-treat/curated data/an_dat_up.csv")
+an_dat <- read.csv("analyses for split-treat/curated data/an_dat_up.csv")
 
 
 #### Prep data for analysis ----
@@ -154,7 +154,7 @@ paneA_color +
   theme(axis.text.x=element_text(angle=45,hjust=1),
         axis.title.x=element_blank(), legend.position = "top")
 
-# ggsave("2 analyses for split-treat/outputs/Fig4 labels 2025-04-06.png", width = 8.625, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig4 labels 2025-04-06.png", width = 8.625, height = 8, units = "in")
 
 ## Color plot, no labels
 paneA_color <- paneA_color +
@@ -214,15 +214,15 @@ paneB_grey <- ggplot() +
 
 ggarrange(paneA_color, paneB_color, ncol = 2, nrow = 1, labels = "AUTO", font.label = list(size = 30))
 
-# ggsave("2 analyses for split-treat/outputs/Fig4_strength_weight_color 2025-04-06.png", width = 17.25, height = 8, units = "in")
-# ggsave("2 analyses for split-treat/outputs/Fig4_strength_weight_color 2025-04-06.tiff", width = 17.25, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig4_strength_weight_color 2025-04-06.png", width = 17.25, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig4_strength_weight_color 2025-04-06.tiff", width = 17.25, height = 8, units = "in")
 
 # Greyscale
 
 ggarrange(paneA_grey, paneB_grey, ncol = 2, nrow = 1, labels = "AUTO", font.label = list(size = 30))
 
-# ggsave("2 analyses for split-treat/outputs/Fig4_strength_weight_grey 2025-04-06.png", width = 17.25, height = 8, units = "in")
-# ggsave("2 analyses for split-treat/outputs/Fig4_strength_weight_grey 2025-04-06.tiff", width = 17.25, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig4_strength_weight_grey 2025-04-06.png", width = 17.25, height = 8, units = "in")
+ggsave("analyses for split-treat/outputs/Fig4_strength_weight_grey 2025-04-06.tiff", width = 17.25, height = 8, units = "in")
 
 
 #### A final exploratory analysis ----
